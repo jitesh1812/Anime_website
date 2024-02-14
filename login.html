@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date Invitation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    #invitation {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    #yes, #no {
+      font-size: 18px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: left 0.5s;
+    }
+
+    #no.inaccessible {
+      left: 100px; /* Change the distance you want the 'NO' option to move */
+    }
+  </style>
+</head>
+<body>
+
+  <div id="invitation">Will you come to a date with me?</div>
+  
+  <div>
+    <button id="yes" onclick="showResponse('Wow Fantastic')">Yes</button>
+    <button id="no" onmouseover="moveNo()" onclick="disableNo()">No</button>
+  </div>
+
+  <script>
+    function showResponse(response) {
+      alert(response);
+    }
+
+    function moveNo() {
+      var noButton = document.getElementById('no');
+      var newPosition = Math.random() * window.innerWidth;
+      noButton.style.left = newPosition + 'px';
+    }
+
+    function disableNo() {
+      var noButton = document.getElementById('no');
+      noButton.classList.add('inaccessible');
+      noButton.disabled = true;
+    }
+  </script>
+
+</body>
+</html>
+background: url('Anime_poster/4_frame.jpg') center/cover no-repeat; /* Corrected */

@@ -1,0 +1,80 @@
+startled
+devoured
+homicide
+adminstration
+smothering him---- with pillow.
+fragile.
+remote area.
+dribble 
+conceive
+vary
+sues 
+
+
+
+<!-- Registration Form -->
+<div id="register" class="section">
+  <h2>Register</h2>
+  <form action="http://localhost:3000/register" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Register</button>
+  </form>
+</div>
+
+<!-- Login Form -->
+<div id="login" class="section">
+  <h2>Login</h2>
+  <form action="http://localhost:3000/login" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Login</button>
+  </form>
+</div>
+from flask import Flask, request, jsonify
+app = Flask(__name__)
+
+# In-memory dictionary to store user data
+users = {}
+
+# Registration route
+@app.route('/register', methods=['POST'])
+def register():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+
+    # Check if the username is already taken
+    if username in users:
+        return jsonify({'message': 'Username already taken'}), 400
+
+    # Store user in the in-memory dictionary (replace with a database in production)
+    users[username] = {'username': username, 'password': password}
+
+    return jsonify({'message': 'User registered successfully'}), 201
+
+# Login route
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+
+    # Find the user in the in-memory dictionary (replace with a database in production)
+    user = users.get(username)
+
+    if user and user['password'] == password:
+        return jsonify({'message': 'Login successful'}), 200
+
+    return jsonify({'message': 'Invalid credentials'}), 401
+
+if __name__ == '__main__':
+    app.run(debug=True)
